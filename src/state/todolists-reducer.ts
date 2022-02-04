@@ -23,7 +23,7 @@ export type ChangeTodolistFilterActionType = {
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
-    | ChangeTodolistFilterActionType
+    | ChangeTodolistFilterActionType | setTodosACType
 
 const initialState: Array<TodolistType> = []
 
@@ -58,6 +58,13 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
         default:
             return state;
     }
+}
+type setTodosACType = {
+    type:'SET-TODOS',
+    todolists:TodolistType[]
+}
+export const setTodosAC = (todolists:TodolistType[]):setTodosACType => {
+    return {type: 'SET-TODOS', todolists}
 }
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {

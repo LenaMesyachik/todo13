@@ -15,7 +15,7 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC
+    removeTodolistAC, setTodosAC
 } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,6 +40,8 @@ function App() {
        let pr = todolistApi.getTodolist()
         pr.then((response)=>{
             debugger
+            let todos = response.data
+            dispatch(setTodosAC(todolists))
         })
     },[])
 
