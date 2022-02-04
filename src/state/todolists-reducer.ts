@@ -25,10 +25,16 @@ type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType | setTodosACType
 
+type TodolistsDomainType = TodolistType & { filter: FilterValuesType}
 const initialState: Array<TodolistType> = []
 
-export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionsType): Array<TodolistType> => {
+export const todolistsReducer = (state: Array<TodolistsDomainType> = initialState, action: ActionsType): Array<TodolistsDomainType> => {
     switch (action.type) {
+        case "SET-TODOS":
+            return  action.todolists.map((tl) => {
+                return {...tl, flter:'all'}
+                })
+
         case 'REMOVE-TODOLIST': {
             return state.filter(tl => tl.id !== action.id)
         }
@@ -59,12 +65,10 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
             return state;
     }
 }
-type setTodosACType = {
-    type:'SET-TODOS',
-    todolists:TodolistType[]
-}
-export const setTodosAC = (todolists:TodolistType[]):setTodosACType => {
-    return {type: 'SET-TODOS', todolists}
+type setTodosACType = ReturnType<typeof setTodosAC >
+
+export const setTodosAC = (todolists:TodolistType[])  => {
+    return {type: 'SET-TODOS', todolists} as const
 }
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
