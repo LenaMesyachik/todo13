@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
 import './App.css';
-import { TaskType, Todolist } from './Todolist';
+import {  Todolist } from './Todolist';
 import { AddItemForm } from './AddItemForm';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,21 +14,21 @@ import { Menu } from '@mui/icons-material';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC, setTodosAC
+    changeTodolistTitleAC, FilterValuesType,
+    removeTodolistAC, setTodosAC, TodolistDomainType
 } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
-import {todolistApi} from "./api/todolists-api";
+import {TaskType, todolistApi} from "./api/todolists-api";
 
 
-export type FilterValuesType = 'all' | 'active' | 'completed';
-export type TodolistType = {
+/*export type FilterValuesType = 'all' | 'active' | 'completed';*/
+/*export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
-}
+}*/
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -39,13 +39,12 @@ function App() {
     useEffect(()=>{
        let pr = todolistApi.getTodolist()
         pr.then((response)=>{
-            debugger
             let todos = response.data
-            dispatch(setTodosAC(todolists))
+            dispatch(setTodosAC(todos))
         })
     },[])
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch();
 
