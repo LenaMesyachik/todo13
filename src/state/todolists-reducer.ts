@@ -93,7 +93,7 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
 
-export const setTodosThunk = (dispatch:Dispatch, getState: () => AppRootStateType ):void => {
+export const setTodosTC  = () => (dispatch:Dispatch, getState: () => AppRootStateType ):void => {
      todolistApi.getTodolist()
        .then((response)=>{
             let todos = response.data
