@@ -1,5 +1,8 @@
 import { v1 } from 'uuid';
-import {TodoType} from "../api/todolists-api";
+import {todolistApi, TodoType} from "../api/todolists-api";
+import {Dispatch} from "redux";
+import {AppRootStateType} from "./store";
+import {useEffect} from "react";
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodoType & { filter: FilterValuesType}
@@ -71,7 +74,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state;
     }
 }
-type setTodosACType = ReturnType<typeof setTodosAC >
+ export type setTodosACType = ReturnType<typeof setTodosAC >
 
 export const setTodosAC = (todolists:TodoType[])  => {
     return {type: 'SET-TODOS', todolists} as const
@@ -90,3 +93,10 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
 
+export const setTodosThunk = (dispatch:Dispatch, getState: () => AppRootStateType ):void => {
+     todolistApi.getTodolist()
+       .then((response)=>{
+            let todos = response.data
+            dispatch(setTodosAC(todos))
+        })
+}
