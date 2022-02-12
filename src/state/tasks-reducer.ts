@@ -142,12 +142,20 @@ export const setTaskTC = (todolistId: string) => {
     return (dispatch: Dispatch) => {
         todolistApi.getTasks(todolistId)
             .then((response) => {
+                debugger
                 let tasks = response.data.items
                 dispatch(setTasksAC(tasks,todolistId))
             })
     }
 }
-
+export const removeTaskTC = (todolistId:string, taskId:string) => {
+    return(dispatch:Dispatch) => {
+        todolistApi.deleteTask(todolistId, taskId)
+            .then((response) => {
+              dispatch(removeTaskAC(taskId, todolistId)) ;
+            })
+    }
+}
 /*
 export const  setTasksThunk = (dispatch:Dispatch) => {
     todolistApi.getTasks()
