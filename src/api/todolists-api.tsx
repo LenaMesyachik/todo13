@@ -39,7 +39,7 @@ export const todolistApi = {
     }
 }
 
-type ResponseType<T={}> = {
+type ResponseType<T = {}> = {
     fieldsErrors: string[],
     messages: string[],
     resultCode: number,
@@ -65,19 +65,22 @@ type DeleteUpdateTodoType = {
     messages: string[],
     resultCode: number
 }
-export enum TaskStatuses  {
+
+export enum TaskStatuses {
     New,
     InProgress,
     Completed,
     Draft
 }
-export enum TaskPriorities  {
+
+export enum TaskPriorities {
     Low,
     Middle,
     Hi,
     Urgently,
     Later
 }
+
 export type TaskType = {
     description: string,
     title: string,
@@ -85,7 +88,7 @@ export type TaskType = {
     priority: TaskPriorities,
     startDate: string,
     deadLine: string,
-    id:string,
+    id: string,
     todolistId: string,
     order: number,
     addedDate: string,

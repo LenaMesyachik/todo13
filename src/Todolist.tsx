@@ -39,7 +39,7 @@ export const Todolist = React.memo(function (props: PropsType) {
 
     useEffect(() => {
         dispatch(setTaskTC(props.id))
-    },[])
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
@@ -76,9 +76,9 @@ export const Todolist = React.memo(function (props: PropsType) {
         <div>
             {
                 tasksForTodolist?.map(t => <Task key={t.id} task={t} todolistId={props.id}
-                                                removeTask={props.removeTask}
-                                                changeTaskTitle={props.changeTaskTitle}
-                                                changeTaskStatus={props.changeTaskStatus}
+                                                 removeTask={props.removeTask}
+                                                 changeTaskTitle={props.changeTaskTitle}
+                                                 changeTaskStatus={props.changeTaskStatus}
                 />)
             }
         </div>
