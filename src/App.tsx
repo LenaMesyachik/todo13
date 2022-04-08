@@ -45,10 +45,10 @@ export type TasksStateType = {
 
 
 function App() {
-    useEffect(()=>{
+    useEffect(() => {
 
-            dispatch(setTodosTC())
-    },[])
+        dispatch(setTodosTC())
+    }, [])
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -56,7 +56,7 @@ function App() {
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
 
-        dispatch(removeTaskTC( todolistId,id));
+        dispatch(removeTaskTC(todolistId, id));
     }, []);
 
     const addTask = useCallback(function (title: string, todolistId: string) {
